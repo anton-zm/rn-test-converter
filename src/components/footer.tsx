@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Image, ImageSourcePropType } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Clock } from '../assets/svg/clock';
 import { Convert } from '../assets/svg/convert';
 
