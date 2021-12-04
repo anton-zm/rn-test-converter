@@ -7,7 +7,7 @@ export const History = ({ navigation }: {navigation: any}) => {
   return (
     <View style={styles.wrapper}>
         <Text>History screen</Text>
-        <Footer />
+        <Footer navigation={navigation} />
     </View>
   );
 }

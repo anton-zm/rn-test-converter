@@ -8,7 +8,7 @@ export const Main = ({ navigation }: {navigation: any}) => {
     <View style={styles.wrapper}>
         
         <Text>Main screen</Text>
-        <Footer />
+        <Footer navigation={navigation} />
     </View>
   );
 }

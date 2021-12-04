@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Clock } from '../assets/svg/clock';
 import { Convert } from '../assets/svg/convert';
 
-const FooterMenuItem = ({text, icon, path}:{text: string, icon: JSX.Element, path: any}) => {
+const FooterMenuItem = ({navigation, text, icon, path}:{navigation: any, text: string, icon: JSX.Element, path: any}) => {
     return (
         <View style={styles.menu_item_wrapper}>
-            <TouchableOpacity style={styles.menu_item} onPress={() => {}}>
+            <TouchableOpacity style={styles.menu_item} onPress={() => {
+                navigation.navigate(path)
+            }}>
                 {icon}
                 <Text style={styles.menu_link}>{text}</Text>
             </TouchableOpacity>
@@ -14,11 +16,11 @@ const FooterMenuItem = ({text, icon, path}:{text: string, icon: JSX.Element, pat
     )
 }
 
-export const Footer = () => {
+export const Footer = ({navigation}:{navigation:any}) => {
     return (
         <View style={styles.wrapper}>
-            <FooterMenuItem text='Конвертер' icon={<Clock />} path='' />
-            <FooterMenuItem text='История' icon={<Convert />} path='' />
+            <FooterMenuItem navigation={navigation} text='Конвертер' icon={<Clock />} path='Main' />
+            <FooterMenuItem navigation={navigation} text='История' icon={<Convert />} path='History' />
         </View>
     )
 }
