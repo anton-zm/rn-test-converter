@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Clock } from '../assets/svg/clock';
 import { Convert } from '../assets/svg/convert';
+import config from '../config';
 
 const FooterMenuItem = ({navigation, text, icon, path}:{navigation: any, text: string, icon: JSX.Element, path: any}) => {
     return (
@@ -19,15 +20,15 @@ const FooterMenuItem = ({navigation, text, icon, path}:{navigation: any, text: s
 export const Footer = ({navigation}:{navigation:any}) => {
     return (
         <View style={styles.wrapper}>
-            <FooterMenuItem navigation={navigation} text='Конвертер' icon={<Clock />} path='Main' />
-            <FooterMenuItem navigation={navigation} text='История' icon={<Convert />} path='History' />
+            <FooterMenuItem navigation={navigation} text='Конвертер' icon={<Convert />} path='Main' />
+            <FooterMenuItem navigation={navigation} text='История' icon={<Clock />} path='History' />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#4c4ff1',
+    backgroundColor: config.mainColor,
     paddingVertical: 10,
     flexDirection: 'row'
 
