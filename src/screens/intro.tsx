@@ -1,19 +1,20 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import logo from '../assets/img/logo.png'
+import { StyleSheet, Text, View } from 'react-native';
+import LottieView from 'lottie-react-native';
+
 
 export const Intro = ({ navigation }: {navigation: any}) => {    
 
 useEffect(() => {
     setTimeout(() => {
         navigation.navigate('Main')
-    }, 6000)
+    }, 4000)
 },[])
 
   return (
     <View style={styles.container}>
-        <Image fadeDuration={3000} source={logo} style={styles.logo} resizeMode='contain'></Image>
+      <LottieView source={require('../assets/logo-animation.json')} autoPlay />
         <View style={styles.text_container}>
             <Text style={styles.text}>TEST TASK</Text>
         </View>
@@ -40,8 +41,5 @@ const styles = StyleSheet.create({
   text: {
     color:'white',
     fontSize: 22,
-  },
-  logo: {
-      width: '80%',
   },
 });
