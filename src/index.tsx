@@ -7,10 +7,15 @@ import { History } from './screens/history';
 import config from './config';
 import { useStore } from './store/use-store';
 
+
 const Route = createStackNavigator();
 
 export default function App(){
   const store = useStore()
+
+  useEffect(() => {
+    store.getInitData()
+  },[])
   
   return (
     <NavigationContainer>
