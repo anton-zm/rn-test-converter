@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { Intro } from './screens/intro';
 import { Main } from './screens/main';
 import { History } from './screens/history';
-import config from './config';
 import { useStore } from './store/use-store';
 
 

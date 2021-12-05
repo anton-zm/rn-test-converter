@@ -7,7 +7,7 @@ import { useStore } from '../store/use-store';
 import { getTextDate } from '../utils/func';
 import config from '../config';
 import { Convert } from '../assets/svg/convert';
-
+import { saveResult } from '../utils/func';
 
 export const Main = ({ navigation }: {navigation: any}) => {
   const store = useStore()
@@ -16,10 +16,6 @@ export const Main = ({ navigation }: {navigation: any}) => {
   const [fromValue, setFromValue] = useState('')
   const [resultValue, setResultValue] = useState('')
   const [error, setError] = useState(' ')
-
-  const saveResult = () => {
-
-  }
 
   const startConvert = async () => {
     if(isNaN(+fromValue)){
@@ -30,8 +26,11 @@ export const Main = ({ navigation }: {navigation: any}) => {
     try{
       fetch(`${config.api_url}convert?${config.api_key}&from=${from}&to=${to}&amount=${fromValue}`)
         .then(res => res.json())
-        .then(res => setResultValue(res.result))
-        .then(res => saveResult())
+        .then(res => {
+          setResultValue(res.result)
+          saveResult(res)
+        })
+        
     } catch(e){
       setError('Что-то пошло не так. Попробуйте еще раз.')
     }
