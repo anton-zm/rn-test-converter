@@ -15,6 +15,38 @@ export const Main = ({ navigation }: {navigation: any}) => {
   const [to, setTo] = useState(store.toCur)
   const [fromValue, setFromValue] = useState('')
   const [resultValue, setResultValue] = useState('')
+  const [error, setError] = useState(' ')
+
+  const saveResult = () => {
+
+  }
+
+  const startConvert = async () => {
+    if(isNaN(+fromValue)){
+      setError('Ошибка! Можно вводить только цифры.')
+    }else if(!fromValue){
+      setError('Ошибка! Введите сумму для конвертации.')
+    }
+    try{
+      fetch(`${config.api_url}convert?${config.api_key}&from=${from}&to=${to}&amount=${fromValue}`)
+        .then(res => res.json())
+        .then(res => setResultValue(res.result))
+        .then(res => saveResult())
+    } catch(e){
+      setError('Что-то пошло не так. Попробуйте еще раз.')
+    }
+  }
+
+  const reverse = () => {
+    setFrom(to)
+    setTo(from)
+    setFromValue('')
+    setResultValue('')
+  }
+
+  useEffect(() => {
+    if(fromValue) setError('')
+  },[fromValue])
 
   return (
     <View style={styles.wrapper}>
@@ -31,9 +63,9 @@ export const Main = ({ navigation }: {navigation: any}) => {
                 placeholder = '0'
                 style={styles.input_value} 
               />
-              <View style={styles.convert_icon}>
+              <TouchableOpacity onPress={reverse} style={styles.convert_icon}>
                 <Convert  color={config.mainColor} />
-              </View>
+              </TouchableOpacity >
             </View>
             
             <View style={styles.input}>
@@ -43,7 +75,8 @@ export const Main = ({ navigation }: {navigation: any}) => {
               </View>
             </View>
           </View>
-          <TouchableOpacity style={styles.button}>
+          <Text style={styles.error}>{error}</Text>
+          <TouchableOpacity onPress={startConvert} style={styles.button}>
             <Text style={styles.button_text}>Конвертировать</Text>
           </TouchableOpacity>
         </View>
@@ -53,6 +86,11 @@ export const Main = ({ navigation }: {navigation: any}) => {
 }
 
 const styles = StyleSheet.create({
+  error: {
+    color: 'red',
+    textAlign: 'center',
+
+  },
   wrapper: {
       flex: 1,
       justifyContent: 'space-between',
