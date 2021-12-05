@@ -9,7 +9,7 @@ export const Intro = ({ navigation }: {navigation: any}) => {
 useEffect(() => {
     setTimeout(() => {
         navigation.navigate('Main')
-    }, 4000)
+    }, 3000)
 },[])
 
   return (

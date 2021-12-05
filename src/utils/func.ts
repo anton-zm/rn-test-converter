@@ -10,6 +10,23 @@ export const getTextDate = (date: Date) => {
     return `${days[weekD]}, ${d} ${months[m]} ${y}`
 }
 
+function addNull(inp:any){
+	if(inp.toString().length === 1){
+		return `0${inp.toString()}`
+	}
+	return inp
+}
+
+export const getResultDate = (date: Date) => {
+    const m = date.getMonth()
+    const y = date.getFullYear()
+    const d = date.getDate()
+    const h = date.getHours()
+    const min = date.getMinutes()
+    
+    return `${d}/${m+1}/${y} ${addNull(h)}:${addNull(min)}`
+}
+
 export const saveResult = async (data: any) => {
     const result: Result = {
       from: data.query.from,
@@ -21,7 +38,6 @@ export const saveResult = async (data: any) => {
 
     try {
         const storage = await AsyncStorage.getItem('results')
-    
         console.log(storage)
         if(storage){
             const results = JSON.parse(storage)

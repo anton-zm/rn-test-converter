@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 14,
     letterSpacing: 0.5,
-    color: '#B2B2B2',
+    color: '#837e7e',
   },
   inputs: {
     marginTop: 48
