@@ -1,36 +1,52 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { Select } from '../components/select';
 import { useStore } from '../store/use-store';
-
+import { getTextDate } from '../utils/func';
+import config from '../config';
+import { Convert } from '../assets/svg/convert';
 
 
 export const Main = ({ navigation }: {navigation: any}) => {
   const store = useStore()
   const [from, setFrom] = useState(store.fromCur)  
   const [to, setTo] = useState(store.toCur)
+  const [fromValue, setFromValue] = useState('')
+  const [resultValue, setResultValue] = useState('')
 
   return (
     <View style={styles.wrapper}>
         <Header title='Конвертер' />
         <View style={styles.main}>
-          <Text style={styles.date}>Пятница, 12 декабря 2021</Text>
+          <Text style={styles.date}>{getTextDate(new Date())}</Text>
           <View style={styles.inputs}>
             <View style={styles.input}>
               <Select styles={SelectStyles} onChange={setFrom} data={store.currencies} value={from} />
-              <TextInput keyboardType='numeric' style={styles.input_value} />
+              <TextInput
+                value={fromValue} 
+                onChangeText={setFromValue}
+                keyboardType='numeric'
+                placeholder = '0'
+                style={styles.input_value} 
+              />
+              <View style={styles.convert_icon}>
+                <Convert  color={config.mainColor} />
+              </View>
             </View>
+            
             <View style={styles.input}>
               <Select styles={SelectStyles} onChange={setTo} data={store.currencies} value={to} />
+              <View style={styles.result}>
+                <Text>{resultValue}</Text>
+              </View>
             </View>
-            
-            
           </View>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.button_text}>Конвертировать</Text>
+          </TouchableOpacity>
         </View>
-        
-        
         <Footer navigation={navigation} />
     </View>
   );
@@ -63,7 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginTop: 30
+    marginBottom: 60
   },
   input_value: {
     width: 200,
@@ -71,6 +87,34 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#d8d1d1',
     paddingHorizontal: 10
+  },
+  result: {
+    width: 200,
+    height: 55,
+    borderWidth: 2,
+    borderColor: '#d8d1d1',
+    paddingHorizontal: 10,
+    justifyContent: 'center'
+  },
+  button: {
+    paddingHorizontal:24,
+    paddingVertical: 15,
+    borderWidth: 4,
+    borderColor: config.mainColor,
+    borderRadius: 25,
+    marginTop: 32,
+    
+  },
+  button_text: {
+    textAlign: 'center',
+    color: config.mainColor,
+    fontSize: 18
+  },
+  convert_icon: {
+    position: 'absolute',
+    top: 70,
+    left: 0,
+    transform: [{rotate:'90deg'}]
   }
 });
 
